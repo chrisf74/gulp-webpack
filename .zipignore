@@ -1,0 +1,6 @@
+# Ignore these files when archiving the project.
+# Usage: $zip -rFS ~/Desktop/foo ./ -x@.zipignore
+*DS_Store*
+*node_modules*
+*build*
+*.git/*
