@@ -2,7 +2,6 @@
  * Dependencies
  */
 var gulpUtil = require('gulp-util');
-var connect = require('gulp-connect');
 var karma = require('karma');
 var gulp = require('gulp');
 var del = require('del');
@@ -53,10 +52,6 @@ gulp.task('watch', function () {
  */
 var serveDeps = ['build','watch'];
 gulp.task('serve', serveDeps, function () {
-	return connect.server({
-		root: buildDir,
-		host: '0.0.0.0'
-	});
 });
 
 /**

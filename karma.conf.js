@@ -1,15 +1,36 @@
-var path = require('path');
-
 module.exports = function (config) {
 	config.set({
 		hostname: '0.0.0.0',
+
 		port: '9876',
-		frameworks: ['jasmine'],
-		browsers: ['PhantomJS'],
+
 		files: [
-			path.dirname(require.resolve('jasmine-core')) + '/jasmine-core/jasmine.js',
-			'src/**/*.js',
-			'test/**/*[sS]pecs.js'
-		]
+			'test/specs.js'
+		],
+
+		preprocessors: {
+			'test/specs.js': ['webpack']
+		},
+
+		frameworks: ['jasmine'],
+
+		browsers: ['PhantomJS'],
+
+		plugins: [
+			require('karma-jasmine'),
+			require('karma-phantomjs-launcher'),
+			require('karma-webpack')
+		],
+
+		webpackMiddleware: {
+			stats: {
+				colors: true
+			}
+		},
+
+		colors: true,
+
+		autoWatch: true
+
 	});
 };
