@@ -16,7 +16,7 @@ function karmaConfigFactory() {
 		port: '9876',
 
 		files: [
-			'test/specs.js'
+			{pattern:'test/specs.js', watched: false, included: true, served: true}
 		],
 
 		preprocessors: {
@@ -37,7 +37,9 @@ function karmaConfigFactory() {
 			}
 		},
 
-		colors: true
+		colors: true,
+
+		autoWatch: true
 	};
 }
 
