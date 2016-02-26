@@ -1,1 +1,1 @@
-require('./deps');
+require('./addSpecs');
