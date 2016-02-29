@@ -3,21 +3,22 @@
  */
 var gulpUtil = require('gulp-util');
 var karma = require('karma');
+var argv = require('yargs').argv;
 var gulp = require('gulp');
 var path = require('path');
 
 /**
- *
+ * KARMA CONFIG FACTORY
  */
 function karmaConfigFactory() {
 	return {
+		colors: true,
+
 		hostname: '0.0.0.0',
 
 		port: '9876',
 
-		files: [
-			{pattern:'test/specs.js', watched: false, included: true, served: true}
-		],
+		files: ['test/specs.js'],
 
 		preprocessors: {
 			'test/specs.js': ['webpack']
@@ -28,8 +29,13 @@ function karmaConfigFactory() {
 		plugins: [
 			require('karma-jasmine'),
 			require('karma-phantomjs-launcher'),
+			require('karma-chrome-launcher'),
 			require('karma-webpack')
 		],
+
+		browsers: ['PhantomJS'],
+
+    reporters: ['dots'],
 
 		webpackMiddleware: {
 			stats: {
@@ -37,25 +43,38 @@ function karmaConfigFactory() {
 			}
 		},
 
-		colors: true,
-
-		autoWatch: true
+		logLevel: 'error'
 	};
 }
 
 /**
- * RUN TESTS TASK
+ * TEST TASK
+ * @param -w, -watch
  */
-gulp.task('run:tests', function (done) {
+gulp.task('test', function (done) {
 	var karmaConfig = karmaConfigFactory();
-	karmaConfig.browsers = ['PhantomJS'];
-	new karma.Server(karmaConfig, done).start();
-});
+	var doneCalled  = false;
 
-/**
- * SERVE TESTS TASK
- */
-gulp.task('serve:tests', function (done) {
-	var karmaConfig = karmaConfigFactory();
-	new karma.Server(karmaConfig, done).start();
+	if (!argv.w && !argv.watch) {
+		karmaConfig.singleRun = true;
+	} else {
+		karmaConfig.autoWatch = true;
+	}
+
+	if (argv.b || argv.browsers) {
+		var browserArg = argv.b || argv.browsers;
+		var browserArr = browserArg.split(" ");
+		karmaConfig.browsers = browserArr;
+	}
+
+	var server = new karma.Server(karmaConfig, function () {
+  	if (doneCalled) {
+  		return;
+  	} else {
+  		doneCalled = true;
+  		return done();
+  	}
+	});
+
+  server.start();
 });
