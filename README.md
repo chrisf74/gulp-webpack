@@ -12,7 +12,8 @@ Build system for modular web apps
 
 ## Gulp Tasks
 * `gulp test [-watch | -browsers]`
-	* Runs tests via Karma server through PhantomJS browser
+
+	Runs tests via Karma server through PhantomJS browser
 
 	* `-watch` or `-w`
 	
