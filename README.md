@@ -11,19 +11,7 @@ Build system for modular web apps
 * `npm install`
 
 ## Gulp Tasks
-* `gulp clean`
-	* Removes `/build`
-* `gulp copy`
-	* Copies files to `/build` directory
-* `gulp build`
-	* Calls `gulp clean`
-	* Calls `gulp copy`
-* `gulp watch`
-	* Calls `gulp build`
-* `gulp serve`
-	* Calls `build`
-	* Calls `watch`
-	* Serves `/build/index.html` at `http://0.0.0.0:8080/`
-* `gulp test`
-	* Automatically runs Jasmine specs in `/test/` through PhantomJS browser via Karma
-	* Visit `http://0.0.0.0:9876` to capture browsers manually
+* `gulp test [-watch | -browsers]`
+	* Runs Jasmine tests via Karma server through PhantomJS browser
+	* `-watch` or `-w` will re-run task when test or src files change
+	* `-browser` or `-b="Chrome Safari"` will run tests through browsers other than PhantomJS browser using Karma browser launcher(s)
