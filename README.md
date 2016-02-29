@@ -12,6 +12,12 @@ Build system for modular web apps
 
 ## Gulp Tasks
 * `gulp test [-watch | -browsers]`
-	* Runs Jasmine tests via Karma server through PhantomJS browser
-	* `-watch` or `-w` will re-run task when test or src files change
-	* `-browser` or `-b="Chrome Safari"` will run tests through browsers other than PhantomJS browser using Karma browser launcher(s)
+	* Runs tests via Karma server through PhantomJS browser
+
+	* `-watch`
+	*`-w`
+		* Re-runs the task when src or test files change
+
+	* `-browser`
+	*`-b="Chrome Safari"`
+		* Capture browser(s) via launcher plugin(s)
