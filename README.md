@@ -15,7 +15,9 @@ Build system for modular web apps
 	* Runs tests via Karma server through PhantomJS browser
 
 	* `-watch` or `-w`
-		* Re-runs the task when src or test files change
+	
+		Re-runs the task when src or test files change
 
 	* `-browser="Browser Browser"` or `-b="Browser Browser"`
-		* Capture browser(s) via launcher plugin(s)
+
+		Capture browser(s) via launcher plugin(s)
