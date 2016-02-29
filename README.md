@@ -14,10 +14,8 @@ Build system for modular web apps
 * `gulp test [-watch | -browsers]`
 	* Runs tests via Karma server through PhantomJS browser
 
-	* `-watch`
-	*`-w`
+	* `-watch` or `-w`
 		* Re-runs the task when src or test files change
 
-	* `-browser`
-	*`-b="Chrome Safari"`
+	* `-browser="Browser Browser"` or `-b="Browser Browser"`
 		* Capture browser(s) via launcher plugin(s)
