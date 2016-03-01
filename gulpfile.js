@@ -2,10 +2,18 @@
  * DEPENDENCIES
  */
 var gulpUtil = require('gulp-util');
+var webpack = require('webpack');
 var karma = require('karma');
 var argv = require('yargs').argv;
 var gulp = require('gulp');
 var path = require('path');
+var del = require('del');
+
+
+/**
+ * VARIABLES
+ */
+var configPath = path.resolve(__dirname, 'config/');
 
 
 /**
@@ -21,7 +29,7 @@ var path = require('path');
  */
 gulp.task('test', function (done) {
 	var karmaConfig = {
-		configFile: path.resolve(__dirname, 'config/karma.conf.js')
+		configFile: configPath + '/karma.conf.js'
 	};
 
 	if (!argv.w && !argv.watch) {
@@ -70,7 +78,25 @@ gulp.task('serve', function (done) {
  * - Output bundle to build directory
  */
 gulp.task('build', function (done) {
+	var webpackPath;
+	if (argv.p || argv.production) {
+		webpackPath = configPath + '/webpack.prod.config.js'
+	} else {
+		webpackPath = configPath + '/webpack.dev.config.js'
+	}
 
+	var webpackConfig = require(webpackPath);
+	var delPaths = del.sync(['build'], {});
+
+	webpack(webpackConfig, function (err, stats) {
+		if (err) {
+			throw new gulpUtil.PluginError('Webpack Error:', err);
+		} else {
+			gulpUtil.log('Webpack', stats.toString({colors: true}));
+		}
+
+		done();
+	});
 });
 
 

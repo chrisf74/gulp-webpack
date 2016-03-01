@@ -1,1 +1,0 @@
-var getWebpackConfig = require('./getWebpackConfig');
