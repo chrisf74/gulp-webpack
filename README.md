@@ -15,28 +15,18 @@ Build system for modular web apps
 
 	Runs tests via Karma server through PhantomJS browser
 
-	* `-watch` or `-w`
+	`-watch` or `-w` re-runs the task when src or test files change
 
-		Re-runs the task when src or test files change
-
-	* `-browser` or `-b`
-
-		Capture browser(s) via launcher plugin(s). Example, capture Chrome and Safari:
-
-		`gulp test -b "Chrome,Safari"`
+	`-browser` or `-b` captures browsers via launcher plugins. For example: `gulp test -b Chrome,Safari`
 
 * `gulp serve [options]`
 
 	Serves bundled modules at 0.0.0.0:8080
 	
-	* `-hot` or `-h`
-	
-		Hot module replacement
+	`-hot` or `-h` Enables hot module replacement
 
 * `gulp build [options]`
 
 	Bundles modules into the build directory
 	
-	* `-debug` or `-d`
-	
-		Includes source maps for debugging	
+	`-debug` or `-d` includes source maps for debugging	
