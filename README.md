@@ -24,3 +24,19 @@ Build system for modular web apps
 		Capture browser(s) via launcher plugin(s). Example, capture Chrome and Safari:
 
 		`gulp test -b "Chrome,Safari"`
+
+* `gulp serve [options]`
+
+	Serves bundled modules at 0.0.0.0:8080
+	
+	* `-hot` or `-h`
+	
+		Hot module replacement
+
+* `gulp build [options]`
+
+	Bundles modules into the build directory
+	
+	* `-debug` or `-d`
+	
+		Includes source maps for debugging	
