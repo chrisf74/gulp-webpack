@@ -7,9 +7,12 @@ module.exports = function () {
 			app: [srcPath + '/index.js']
 		},
 
-		output: {
-			path: srcPath,
-			filename: 'bundle.js'
-		}
+		devServer: {
+			publicPath: '/',
+			filename: 'srcBundle.js',
+			contentBase: 'src/'
+		},
+
+		plugins: []
 	};
 };

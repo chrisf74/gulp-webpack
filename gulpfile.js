@@ -1,6 +1,8 @@
 /**
  * DEPENDENCIES
  */
+var getWebpackConfig = require('./config/getWebpackConfig');
+var WebpackDevServer = require("webpack-dev-server");
 var gulpUtil = require('gulp-util');
 var webpack = require('webpack');
 var karma = require('karma');
@@ -60,34 +62,68 @@ gulp.task('test', function (done) {
 
 /**
  * SERVE TASK
+ * @param -h, -hot
  * @public
  * TODO:
  * - Serve src directory
  */
 gulp.task('serve', function (done) {
+	var webpackConfig = getWebpackConfig();
+	webpackConfig.output = {
+		path: path.resolve(__dirname, 'src'),
+		filename: 'srcBundle.js'
+	};
 
+	if (argv.h || argv.hot) {
+		webpackConfig.entry.app.unshift('webpack/hot/dev-server');
+		webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
+		webpackConfig.devServer.hot = true;
+	}
+
+	webpackConfig.entry.app.unshift('webpack-dev-server/client?http://0.0.0.0:8080');
+	webpackConfig.devtool = 'eval';
+	webpackConfig.debug = true;
+
+	var compiler = webpack(webpackConfig);
+	var server = new WebpackDevServer(compiler, webpackConfig.devServer);
+
+	server.listen(8080, "0.0.0.0", function (err) {
+		if (err) {
+			throw gulpUtil.PluginError('Serve Error', err);
+		} else {
+			gulpUtil.log('Serving...');
+		}
+		done();
+	});
 });
 
 
 /**
  * BUILD TASK
- * @param -p, -production
+ * @param -d, -debug
  * @public
  * TODO:
  * - Assign proper webpack config based on param
  * - Output bundle to build directory
  */
 gulp.task('build', function (done) {
-	var webpackPath;
-	if (argv.p || argv.production) {
-		webpackPath = configPath + '/webpack.prod.config.js'
+	var webpackConfig = getWebpackConfig();
+	webpackConfig.output = {
+		path: path.resolve(__dirname, 'build'),
+		filename: 'bundle.js'
+	};
+
+	if (argv.d || argv.debug) {
+		webpackConfig.devtool = "sourcemap";
+		webpackConfig.debug   = true;
 	} else {
-		webpackPath = configPath + '/webpack.dev.config.js'
+		// Do production build stuff like minify, etc
 	}
 
-	var webpackConfig = require(webpackPath);
-	var delPaths = del.sync(['build'], {});
+	// Delete build directory
+	del.sync(['build'], {});
 
+	// Webpack build
 	webpack(webpackConfig, function (err, stats) {
 		if (err) {
 			throw new gulpUtil.PluginError('Webpack Error:', err);
