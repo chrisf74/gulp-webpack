@@ -27,7 +27,6 @@ var configPath = path.resolve(__dirname, 'config/');
  * - JSX tests
  * - Mock modules
  * - Fixtures
- * - Browser args wo quotes?
  */
 gulp.task('test', function (done) {
 	var karmaConfig = {
@@ -65,7 +64,7 @@ gulp.task('test', function (done) {
  * @param -h, -hot
  * @public
  * TODO:
- * - Serve src directory
+ * - Get hmr working?
  */
 gulp.task('serve', function (done) {
 	var webpackConfig = getWebpackConfig();
@@ -103,8 +102,6 @@ gulp.task('serve', function (done) {
  * @param -d, -debug
  * @public
  * TODO:
- * - Assign proper webpack config based on param
- * - Output bundle to build directory
  */
 gulp.task('build', function (done) {
 	var webpackConfig = getWebpackConfig();
@@ -133,12 +130,4 @@ gulp.task('build', function (done) {
 
 		done();
 	});
-});
-
-
-/**
- * RELEASE TASK
- */
-gulp.task('release', function (done) {
-
 });
