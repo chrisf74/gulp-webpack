@@ -1,6 +1,8 @@
 var getWebpackConfig = require('./getWebpackConfig');
 var webpackConfig = getWebpackConfig();
+
 webpackConfig.entry = {};
+webpackConfig.watch = true;
 
 var path = require('path');
 var testEntry = path.resolve(__dirname, '../test/test.jsx');
@@ -13,7 +15,10 @@ module.exports = function () {
 
 		port: '9876',
 
-		files: [testEntry],
+		files: [{
+			pattern: testEntry,
+      watched: false,
+		}],
 
 		preprocessors: {},
 
@@ -27,10 +32,14 @@ module.exports = function () {
 
 		webpack: webpackConfig,
 
-		webpackMiddleware: {
-			stats: {
-				colors: true
-			}
+		// webpackMiddleware: {
+		// 	stats: {
+		// 		colors: true
+		// 	}
+		// },
+
+		webpackServer: {
+			noInfo: true
 		}
 	};
 
