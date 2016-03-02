@@ -13,6 +13,10 @@ module.exports = function () {
 			contentBase: 'src/'
 		},
 
+		resolve: {
+			extensions: ['', '.js', '.jsx']
+		},
+
 		module: {
 			loaders: [
 			  {

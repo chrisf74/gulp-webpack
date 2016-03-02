@@ -1,5 +1,9 @@
-var path  = require('path');
-var entry = path.resolve(__dirname, '../test/specs.js');
+var getWebpackConfig = require('./getWebpackConfig');
+var webpackConfig = getWebpackConfig();
+webpackConfig.entry = {};
+
+var path = require('path');
+var testEntry = path.resolve(__dirname, '../test/test.jsx');
 
 module.exports = function () {
 	var config = {
@@ -9,7 +13,7 @@ module.exports = function () {
 
 		port: '9876',
 
-		files: [entry],
+		files: [testEntry],
 
 		preprocessors: {},
 
@@ -21,11 +25,7 @@ module.exports = function () {
 
 		logLevel: 'error',
 
-		plugins: [
-			require('karma-jasmine'),
-			require('karma-phantomjs-launcher'),
-			require('karma-webpack')
-		],
+		webpack: webpackConfig,
 
 		webpackMiddleware: {
 			stats: {
@@ -34,6 +34,6 @@ module.exports = function () {
 		}
 	};
 
-	config.preprocessors[entry] = ['webpack'];
+	config.preprocessors[testEntry] = ['webpack'];
 	return config;
 };
