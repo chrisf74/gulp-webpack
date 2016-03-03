@@ -1,13 +1,12 @@
-import mockDependency from './mockDependency';
-
 let math;
 describe('math', () => {
 	beforeEach(() => {
-		mockDependency('../src/add', {
-			__esModule: true,
-			default: function () {return 1;},
-		});
-		math = require('../src/math').default;
+		require('./../src/add');
+		require.cache[require.resolve('./../src/add')].exports = {
+	  	__esModule: true,
+	  	default: function () {return 1;}
+	  };
+		math = require('./../src/math').default;
 	});
 
   it('should exist', () => {
