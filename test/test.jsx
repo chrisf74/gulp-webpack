@@ -1,7 +1,6 @@
 const srcContext = require.context('../src', true, /.jsx?$/);
-
 const srcModuleIds = srcContext.keys().map(module => {
-	String(srcContext.resolve(module));
+	return String(srcContext.resolve(module));
 });
 
 beforeEach(() => {
