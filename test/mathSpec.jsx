@@ -1,14 +1,11 @@
-var math;
+import mathMock from './mathMock';
+let math;
+
 describe('math', () => {
 	beforeEach(() => {
-		require('../src/add');
-		require.cache[require.resolve('../src/add')].exports = {
-		  __esModule: true,
-		  default: function (a,b) {
-		    return 1;
-		  }
-		};
-		math = require('../src/math').default;
+		math = mathMock({
+			add: function () {return 1;}
+		});
 	});
 
   it('should exist', () => {
