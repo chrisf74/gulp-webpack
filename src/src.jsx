@@ -1,1 +1,1 @@
-import math from './math';
+import './math';

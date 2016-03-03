@@ -1,12 +1,9 @@
-var path = require('path');
-var srcPath = path.resolve(__dirname, '../src');
-require(srcPath+'/add');
-require.cache[require.resolve('add')].exports = function (a,b) {
+require('../src/add');
+require.cache[require.resolve('../src/add')].exports = function (a,b) {
 	return 1;
 };
 
-import math from '../src/math';
-
+var math = require('../src/math');
 describe('math', () => {
 
 	it('should exist', () => {
@@ -14,6 +11,7 @@ describe('math', () => {
 	});
 
 	it('should add two numbers', () => {
+		console.log("math.add = " + math.add);
 		expect(math.add()).toEqual(1);
 	});
 });
