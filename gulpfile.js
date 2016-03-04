@@ -24,8 +24,6 @@ var configPath = path.resolve(__dirname, 'config/');
  * @param -b, -browsers
  * @public
  * TODO:
- * - JSX tests
- * - Mock modules
  * - Fixtures
  */
 gulp.task('test', function (done) {

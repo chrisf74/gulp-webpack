@@ -1,10 +1,9 @@
 var path = require('path');
-var srcPath = path.resolve(__dirname, '../src');
 
 module.exports = function () {
 	return {
 		entry: {
-			app: [srcPath + '/index.jsx']
+			app: [path.resolve(__dirname, '../src/src.jsx')]
 		},
 
 		devServer: {
