@@ -1,5 +1,11 @@
-var path  = require('path');
-var entry = path.resolve(__dirname, '../test/specs.js');
+var getWebpackConfig = require('./getWebpackConfig');
+var path = require('path');
+
+var webpackConfig = getWebpackConfig();
+webpackConfig.entry = {};
+webpackConfig.watch = true;
+
+var testEntry = path.resolve(__dirname, '../test/test.js');
 
 module.exports = function () {
 	var config = {
@@ -9,7 +15,10 @@ module.exports = function () {
 
 		port: '9876',
 
-		files: [entry],
+		files: [{
+			pattern: testEntry,
+      watched: false,
+		}],
 
 		preprocessors: {},
 
@@ -21,19 +30,21 @@ module.exports = function () {
 
 		logLevel: 'error',
 
-		plugins: [
-			require('karma-jasmine'),
-			require('karma-phantomjs-launcher'),
-			require('karma-webpack')
-		],
+		webpack: webpackConfig,
 
-		webpackMiddleware: {
-			stats: {
-				colors: true
-			}
+		webpackServer: {
+			noInfo: true
 		}
 	};
 
-	config.preprocessors[entry] = ['webpack'];
+	config.preprocessors[testEntry] = ['webpack'];
+
+	// Uncomment on to debug test bundle.
+	// config.webpackMiddleware: {
+	// 	stats: {
+	// 		colors: true
+	// 	}
+	// };
+
 	return config;
 };
