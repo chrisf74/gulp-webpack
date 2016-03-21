@@ -19,7 +19,7 @@
 /**
  * Example
  */
-describe('spec', () => {
+describe('testSpec', () => {
 	it('should run', () => {
 		expect(true).toEqual(true);
 	});
