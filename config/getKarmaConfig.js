@@ -4,6 +4,7 @@ var path = require('path');
 var webpackConfig = getWebpackConfig();
 webpackConfig.entry = {};
 webpackConfig.watch = true;
+webpackConfig.devtool = 'inline-source-map';
 
 var testEntry = path.resolve(__dirname, '../test/test.js');
 
@@ -37,7 +38,7 @@ module.exports = function () {
 		}
 	};
 
-	config.preprocessors[testEntry] = ['webpack'];
+	config.preprocessors[testEntry] = ['webpack', 'sourcemap'];
 
 	// Uncomment on to debug test bundle.
 	// config.webpackMiddleware: {

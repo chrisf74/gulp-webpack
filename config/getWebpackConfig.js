@@ -9,7 +9,8 @@ module.exports = function () {
 		devServer: {
 			publicPath: '/',
 			filename: 'srcBundle.js',
-			contentBase: 'src/'
+			contentBase: 'src/',
+			historyApiFallback: true
 		},
 
 		plugins: []
