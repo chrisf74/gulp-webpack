@@ -3,6 +3,7 @@
  */
 var getWebpackConfig = require('./config/getWebpackConfig');
 var WebpackDevServer = require("webpack-dev-server");
+var getKarmaConfig = require('./config/getKarmaConfig');
 var gulpUtil = require('gulp-util');
 var webpack = require('webpack');
 var karma = require('karma');
@@ -27,10 +28,17 @@ var configPath = path.resolve(__dirname, 'config/');
  * - Fixtures
  */
 gulp.task('test', function (done) {
-	var karmaConfig = {
-		configFile: configPath + '/karma.conf.js'
+	var webpackConfig = getWebpackConfig();
+	var freeVars = {
+		ENV: JSON.stringify('TEST')
 	};
 
+	webpackConfig.entry = {};
+	webpackConfig.watch = true;
+	webpackConfig.devtool = 'inline-source-map';
+	webpackConfig.plugins.push(new webpack.DefinePlugin(freeVars));
+
+	var karmaConfig = getKarmaConfig(webpackConfig);
 	if (!argv.w && !argv.watch) {
 		karmaConfig.singleRun = true;
 	} else {
@@ -66,6 +74,10 @@ gulp.task('test', function (done) {
  */
 gulp.task('serve', function (done) {
 	var webpackConfig = getWebpackConfig();
+	var freeVars = {
+		ENV: JSON.stringify('DEV')
+	};
+
 	webpackConfig.output = {
 		path: path.resolve(__dirname, 'src'),
 		filename: 'srcBundle.js'
@@ -77,9 +89,10 @@ gulp.task('serve', function (done) {
 		webpackConfig.devServer.hot = true;
 	}
 
-	webpackConfig.entry.app.unshift('webpack-dev-server/client?http://0.0.0.0:8080');
-	webpackConfig.devtool = 'eval';
 	webpackConfig.debug = true;
+	webpackConfig.devtool = 'eval';
+	webpackConfig.plugins.push(new webpack.DefinePlugin(freeVars));
+	webpackConfig.entry.app.unshift('webpack-dev-server/client?http://0.0.0.0:8080');
 
 	var compiler = webpack(webpackConfig);
 	var server = new WebpackDevServer(compiler, webpackConfig.devServer);
@@ -103,17 +116,21 @@ gulp.task('serve', function (done) {
  */
 gulp.task('build', function (done) {
 	var webpackConfig = getWebpackConfig();
+	var freeVars = {
+		ENV: JSON.stringify('PROD')
+	};
+
 	webpackConfig.output = {
 		path: path.resolve(__dirname, 'build'),
 		filename: 'bundle.js'
 	};
 
 	if (argv.d || argv.debug) {
-		webpackConfig.devtool = "sourcemap";
 		webpackConfig.debug   = true;
-	} else {
-		// Do production build stuff like minify, etc
+		webpackConfig.devtool = "sourcemap";
 	}
+
+	webpackConfig.plugins.push(new webpack.DefinePlugin(freeVars));
 
 	// Delete build directory
 	del.sync(['build'], {});
