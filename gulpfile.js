@@ -76,7 +76,7 @@ gulp.task('test', function (done) {
 gulp.task('serve', function (done) {
 	var webpackConfig = getWebpackConfig();
 	var freeVars = {
-		ENV: JSON.stringify('DEV')
+		ENV: JSON.stringify('LOCAL')
 	};
 
 	webpackConfig.output = {
@@ -118,7 +118,7 @@ gulp.task('serve', function (done) {
 gulp.task('build', function (done) {
 	var webpackConfig = getWebpackConfig();
 	var freeVars = {
-		ENV: JSON.stringify('PROD')
+		ENV: JSON.stringify('PRODUCTION')
 	};
 
 	webpackConfig.output = {
