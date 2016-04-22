@@ -9,7 +9,7 @@ module.exports = function () {
 		devServer: {
 			publicPath: '/',
 			filename: 'srcBundle.js',
-			contentBase: 'src/',
+			contentBase: 'serve/',
 			historyApiFallback: true
 		},
 

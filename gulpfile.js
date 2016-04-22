@@ -80,7 +80,7 @@ gulp.task('serve', function (done) {
 	};
 
 	webpackConfig.output = {
-		path: path.resolve(__dirname, 'src'),
+		path: path.resolve(__dirname, 'serve'),
 		filename: 'srcBundle.js'
 	};
 
