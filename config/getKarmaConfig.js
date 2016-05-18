@@ -18,7 +18,7 @@ module.exports = function (webpackConfig) {
 
 		frameworks: ['jasmine'],
 
-		browsers: ['PhantomJS'],
+		browsers: ['Chrome'],
 
     reporters: ['dots'],
 

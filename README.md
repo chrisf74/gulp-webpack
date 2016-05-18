@@ -13,7 +13,7 @@ Build system for modular web apps
 ## Gulp Tasks
 * `gulp test [options]`
 
-	Runs tests via Karma server through PhantomJS browser
+	Runs tests via Karma server through Chrome browser
 
 	`-watch` or `-w` re-runs the task when src or test files change
 
@@ -22,11 +22,11 @@ Build system for modular web apps
 * `gulp serve [options]`
 
 	Serves bundled modules at 0.0.0.0:8080
-	
+
 	`-hot` or `-h` Enables hot module replacement
 
 * `gulp build [options]`
 
 	Bundles modules into the build directory
-	
-	`-debug` or `-d` includes source maps for debugging	
+
+	`-debug` or `-d` includes source maps for debugging
