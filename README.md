@@ -1,6 +1,8 @@
 # gulp-webpack
 Build system for modular web apps
 
+__JSX__ is compiled via [Webpack](https://webpack.github.io/) and [babel-loader](https://github.com/babel/babel-loader). For more information about Babel options and JSX support, visit https://babeljs.io/
+
 ## Dependencies
 * `brew install node`
 * `npm install -g gulp`
